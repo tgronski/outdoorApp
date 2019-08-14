@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Outdoor API App</title>
+    <script src="https://kit.fontawesome.com/edb3e54f58.js"></script>
+    <link rel="stylesheet" href="main.css">
+    <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div class="container">
+        <h1>National Park Trip Planner</h1>
+
+        <form id="js-form">
+            <label for="search-term">Search by state (abbreviate)</label>
+            <input type="text" name="search-term" id="js-search-term" value="WI" required>
+
+            <label for="max-results">Maximum results to return</label>
+            <input type="number" name="max-results" id="js-max-results" value="10">
+
+            <input type="submit" value="Go!">
+        </form>
+
+        <p id="js-error-message" class="error-message"></p>
+        <section id="results" class="hidden">
+          <h2>Search results<p id="numberResults"></p></h2>
+          <ul id="results-list">
+          </ul>
+          <h2>Check out the forecast</h2>
+          <ul id="weather">
+                    
+        </ul>
+        <section id='reviewData' class='hidden'>
+            <h2>Check out the Nearby Attractions</h2> 
+            <form id="park-form">
+                <label for="search-term">Search for things to do near your selected Park</label>
+                <input type="text" name="search-term" id="park-search-term"  required>
+                <!-- <label for="max-results">Maximum results to return</label>
+                <input type="number" name="max-results" id="park-max-results" value="10"> -->
+    
+                <input type="submit" value="Go!">
+            </form>
+            <section>
+                <ul id="nearbyResults">
+
+                </ul>
+            </section>
+        </section>
+    </div>
+    <script src="data.js"></script>
+</body>
+</html>
+
