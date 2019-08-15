@@ -18,11 +18,11 @@ function formatQueryParams(params) {
 }
 
 
-function displayResults(responseJsonNPS) {
+function displayResults(responseJson) {
 
-  console.log(responseJsonNPS);
+  console.log(responseJson);
  
-  if (responseJsonNPS.total == 0) {
+  if (responseJson.total == 0) {
     $('#js-error-message').text("No results. Try another search!")
     $('#js-error-message').removeClass('hidden');
     $('#results').addClass('hidden');
@@ -36,15 +36,15 @@ function displayResults(responseJsonNPS) {
     let names=[];
     // let newArr=[];
     
-    for (let i = 0; i < responseJsonNPS.data.length; i++) {
+    for (let i = 0; i < responseJson.data.length; i++) {
 
       $('#results-list').append(
-        `<li><h3 class='parkName'>${responseJsonNPS.data[i].name}</h3>
-      <p>${responseJsonNPS.data[i].description}</p><a href='${responseJsonNPS.data[i].url}' target="_blank">Check it out!</a></section><section id="logos"><a href="#weather"><i id="postal-form" class="fas fa-temperature-low"></i></a><a href="#nearbyResults" ><i class="fab fa-foursquare"></i></a></section></li><p class="hidden" id='postalCode'>${responseJsonNPS.data[i].addresses[1].postalCode}</p>`);
-      arr.push(`${responseJsonNPS.data[i].addresses[1].postalCode}`);
-      names.push(`${responseJsonNPS.data[i].name}`);
+        `<li><h3 class='parkName'>${responseJson.data[i].name}</h3>
+      <p>${responseJson.data[i].description}</p><a href='${responseJson.data[i].url}' target="_blank">Check it out!</a></section><section id="logos"><a href="#weather"><i id="postal-form" class="fas fa-temperature-low"></i></a><a href="#nearbyResults" ><i class="fab fa-foursquare"></i></a></section></li><p class="hidden" id='postalCode'>${responseJson.data[i].addresses[1].postalCode}</p>`);
+      arr.push(`${responseJson.data[i].addresses[1].postalCode}`);
+      names.push(`${responseJson.data[i].name}`);
       getWeather(arr[i]);
-      $("#numberResults").html(`${responseJsonNPS.data.length} results`)
+      $("#numberResults").html(`${responseJson.data.length} results`)
       $("#park-search-term").val(names[0]);
     
         
@@ -76,7 +76,7 @@ function getParks(query, maxResults = 10) {
       }
       throw new Error(response.statusText);
     })
-    .then(responseJsonNPS => displayResults(responseJsonNPS))
+    .then(responseJson => displayResults(responseJson))
     .catch(err => {
       $('#js-error-message').text(`Something went wrong: ${err.message}`)
     });
@@ -99,16 +99,16 @@ function watchForm() {
 
 
 function getWeather(query) {
-  const paramsWeather = {
+  const params = {
     key: weatherApiKey,
     postal_code: query,
   };
-  const queryStringWeather = formatQueryParamsWeather(paramsWeather)
-  const urlWeather = weatherSearchURL + queryStringWeather;
+  const queryString = formatQueryParamsWeather(params)
+  const url = weatherSearchURL + queryString;
 
-  console.log(urlWeather);
+  console.log(url);
 
-  fetch(urlWeather)
+  fetch(url)
     .then(response => {
       if (response.ok) {
         return response.json();
@@ -122,9 +122,9 @@ function getWeather(query) {
 }
 
 function formatQueryParamsWeather(params) {
-  const queryItemsWeather = Object.keys(params)
+  const queryItems = Object.keys(params)
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
-  return queryItemsWeather.join('&');
+  return queryItems.join('&');
 }
 
 
@@ -144,43 +144,43 @@ function watchReviews() {
 }
 
 
-function getReviews(query4) {
-  const paramsReviews = {
-    near: query4,
+function getReviews(query) {
+  const params = {
+    near: query,
     client_id: reviewAPIKeyClient,
     client_secret: reviewApiKey,
     v: 20190811,
     // ll: "40.7,-74"
   };
-  const queryStringReviews = formatQueryParamsReviews(paramsReviews)
-  const urlReviews = reviewSearchURL + queryStringReviews;
+  const queryString = formatQueryParamsReviews(params)
+  const url = reviewSearchURL + queryString;
 
-  console.log(urlReviews);
+  console.log(url);
 
-  fetch(urlReviews)
+  fetch(url)
     .then(response => {
       if (response.ok) {
         return response.json();
       }
       throw new Error(response.statusText);
     })
-    .then(responseJsonReviews => displayReviewResults(responseJsonReviews))
+    .then(responseJson => displayReviewResults(responseJson))
     .catch(err => {
       $('#js-error-message').text(`Something went wrong: ${err.message}`)
     });
 }
 
-function formatQueryParamsReviews(paramsReviews) {
-  const queryItemsReviews = Object.keys(paramsReviews)
-    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(paramsReviews[key])}`)
-  return queryItemsReviews.join('&');
+function formatQueryParamsReviews(params) {
+  const queryItems = Object.keys(params)
+    .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
+  return queryItems.join('&');
 }
 
 
-function displayReviewResults(responseJsonReviews) {
-  console.log(responseJsonReviews);
-  for (let j = 0; j < responseJsonReviews.response.groups[0].items.length; j++) {
-    $('#nearbyResults').append(`<li><h3 class='venueName'>${[j+1]}: ${responseJsonReviews.response.groups[0].items[j].venue.name}</h3></li>`);
+function displayReviewResults(responseJson) {
+  console.log(responseJson);
+  for (let j = 0; j < responseJson.response.groups[0].items.length; j++) {
+    $('#nearbyResults').append(`<li><h3 class='venueName'>${[j+1]}: ${responseJson.response.groups[0].items[j].venue.name}</h3></li>`);
   };
 
 }
