@@ -58,7 +58,7 @@ function displayResults(responseJson) {
 
       $('#results-list').append(
         `<li><h3 class='parkName'>${responseJson.data[i].name}</h3>
-      <p>${responseJson.data[i].description}</p><ul class="parkAddress">Address<li>${responseJson.data[i].addresses[1].line1}</li><li>${responseJson.data[i].addresses[1].line2}</li><li>${responseJson.data[i].addresses[1].line3}</li><li>${responseJson.data[i].addresses[1].city},${responseJson.data[i].addresses[1].stateCode} ${responseJson.data[i].addresses[1].postalCode} </li></ul><section id="logos"><a href='${responseJson.data[i].url}' target="_blank"><i class="fas fa-tree"></i></a><a href="#weather"><i id="postal-form" class="fas fa-temperature-low"></i></a><a href="#park-form" ><i class="fab fa-foursquare"></i></a></section>`);
+      <p>${responseJson.data[i].description}</p><ul class="parkAddress">Address<li>${responseJson.data[i].addresses[1].line1}</li><li>${responseJson.data[i].addresses[1].line2}</li><li>${responseJson.data[i].addresses[1].line3}</li><li>${responseJson.data[i].addresses[1].city},${responseJson.data[i].addresses[1].stateCode} ${responseJson.data[i].addresses[1].postalCode} </li></ul><p>Click the icons for more info:</p><section id="logos"><a href='${responseJson.data[i].url}' target="_blank"><i class="fas fa-tree"></i></a><a href="#weather"><i id="postal-form" class="fas fa-temperature-low"></i></a><a href="#park-form" ><i class="fab fa-foursquare"></i></a></section>`);
 
       // getWeather(arr[i]);
       $("#numberResults").html(`${responseJson.data.length} results`)

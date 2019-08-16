@@ -29,12 +29,18 @@
   }
   i{
     font-size: 30px;
-    
-  }
- i{
-   justify-content: space-evenly;
+    align-items: center;
+ }
+ i:hover{
+   font-size: 40px;
  }
 
 .parkAddress{
   list-style: none;
+}
+#logos{
+  display: flex;
+  width: 200px;
+  justify-content: space-between;
+
 }
