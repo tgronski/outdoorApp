@@ -104,6 +104,7 @@ function watchForm() {
     $('#nearbyResults').empty();
     $('#weather').empty();
     $("#park-search-term").val("search");
+    $("#attractionResults").addClass("hidden");
     $('#js-error-message').addClass('hidden');
     const searchTerm = $('#js-search-term').val();
     const maxResults = $('#js-max-results').val();
@@ -215,26 +216,35 @@ function displayReviewResults(responseJson) {
     else if (`${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Grocery Store" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Sandwich Place") {
       grocery.push(`${responseJson.response.groups[0].items[j].venue.name}`)
     }
-    else if (`${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Campground" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Botanical Garden" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "State / Provincial Park") {
+    else if (`${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Lake" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Harbor Marina" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Bay" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Bike Trail" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Yoga Studio" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Campground" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Botanical Garden" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "State / Provincial Park") {
       outdoors.push(`${responseJson.response.groups[0].items[j].venue.name}`)
     }
   };
-  if (nightLife.length > 0) {
 
-    $("#nightLife").append(nightLife.join(", "));
+  if (nightLife.length > 0) {
+    for (let i = 0; i < nightLife.length; i++) {
+      $("#nightLife").append(`<li>${[i + 1]}: ${nightLife[i]}</li>`);
+    }
   }
   else $("#nightLife").append("<p>None</p>")
-  if (grocery.length > 0) {
 
-    $("#grocery").append(grocery.join(", "));
+
+
+  if (grocery.length > 0) {
+    for (let i = 0; i < grocery.length; i++) {
+      $("#grocery").append(`<li>${[i + 1]}: ${grocery[i]}</li>`);
+    }
   }
   else $("#grocery").append("<p>None</p>")
-  if (outdoors.length > 0) {
 
-    $("#outdoors").append(outdoors.join(", "));
+
+
+  if (outdoors.length > 0) {
+    for (let i = 0; i < outdoors.length; i++) {
+      $("#outdoors").append(`<li>${[i + 1]}: ${outdoors[i]}</li>`);
+    }
   }
   else $("#outdoors").append("<p>None</p>")
-  
 
 }
 
