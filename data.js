@@ -206,7 +206,6 @@ function displayReviewResults(responseJson) {
   const grocery = [];
   const outdoors = [];
   $("#attractionResults").removeClass("hidden");
-  $("#navigateUp2").html("<a href='#js-form'><p>Back to the Parks List</p></a>")
 
   for (let j = 0; j < responseJson.response.groups[0].items.length; j++) {
     // $('#nearbyResults').append(`<li><h3 class='venueName'>${[j+1]}: ${responseJson.response.groups[0].items[j].venue.name}</h3><h4>Type: ${responseJson.response.groups[0].items[j].venue.categories[0].name}</h4></li>`);
