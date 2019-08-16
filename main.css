@@ -34,3 +34,7 @@
  i{
    justify-content: space-evenly;
  }
+
+.parkAddress{
+  list-style: none;
+}

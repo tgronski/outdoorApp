@@ -17,10 +17,11 @@
             <label for="search-term">Search by state (abbreviate)</label>
             <input type="text" name="search-term" id="js-search-term" value="WI" maxlength='2' required>
 
-            <label for="max-results">Maximum results to return</label>
-            <input type="number" name="max-results" id="js-max-results" value="10">
+            <label for="max-results" >Maximum results to return</label>
+            <input type="number" min="1" name="max-results" id="js-max-results" value="10">
 
             <input type="submit" value="Go!">
+            <input type="button" value="Reset!" class="reset">
         </form>
 
         <p id="js-error-message" class="error-message"></p>
@@ -32,6 +33,8 @@
           <ul id="weather">
                     
         </ul>
+        <section id="navigateUp1">
+        </section>
         <section id='reviewData' class='hidden'>
             <h2>Check out the Nearby Attractions</h2> 
             <form id="park-form">
@@ -41,11 +44,14 @@
                 <input type="number" name="max-results" id="park-max-results" value="10"> -->
     
                 <input type="submit" value="Go!">
+               
             </form>
-            <section>
-                <ul id="nearbyResults">
-
-                </ul>
+            <section id='attractionResults' class="hidden">
+                <h3>Night Life:</h3><ul id="nightLife" ></ul>
+                <h3>Grocery/Fast Food:</h3><ul id="grocery"></ul>
+                <h3>Outdoors:</h3><ul id="outdoors"></ul>
+            </section>
+            <section id="navigateUp2">
             </section>
         </section>
     </div>
