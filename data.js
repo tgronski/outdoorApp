@@ -66,9 +66,17 @@ function displayResults(responseJson) {
 
 
     };
+    
   }
 
 }
+
+// function clearAttractions(){
+//   $(".fa-foursquare").click(event =>{
+//     $("#attractionResults").addClass("hidden");
+//   });
+
+
 
 let names = [];
 let arr = [];
@@ -149,7 +157,7 @@ function displayWeatherResults(responseJson, name) {
   console.log(responseJson);
   console.log(arr);
   console.log(names);
-  $('#weather').append(`<p>Forecast for ${name}: <ul> <li>${responseJson.data[0].datetime}: ${responseJson.data[0].rh} degrees</li><li> ${responseJson.data[0].weather.description}</li></ul><ul><li>${responseJson.data[1].datetime}: ${responseJson.data[1].rh} degrees</li><li>${responseJson.data[1].weather.description}</li></ul><ul><li>${responseJson.data[2].datetime}: ${responseJson.data[2].rh} degrees</li><li>${responseJson.data[2].weather.description}</li></ul></p>`);
+  $('#weather').append(`<p>Forecast for ${name}: <section class='grid-container'> <ul> <li class='grid-item'>Today: ${responseJson.data[0].rh}&deg</li><li class='grid-item'> ${responseJson.data[0].weather.description}</li></ul><ul><li class='grid-item'>${responseJson.data[1].datetime}: ${responseJson.data[1].rh}&deg</li><li class='grid-item'>${responseJson.data[1].weather.description}</li></ul><ul><li class='grid-item'>${responseJson.data[2].datetime}: ${responseJson.data[2].rh}&deg</li><li class='grid-item'>${responseJson.data[2].weather.description}</li></ul></section></p>`);
   $("#navigateUp1").html("<a href='#js-form'><p>Back to the Parks List</p></a>")
   // weatherStr.push(`${responseJson.data[0].datetime}`);
 
@@ -209,10 +217,10 @@ function displayReviewResults(responseJson) {
 
   for (let j = 0; j < responseJson.response.groups[0].items.length; j++) {
     // $('#nearbyResults').append(`<li><h3 class='venueName'>${[j+1]}: ${responseJson.response.groups[0].items[j].venue.name}</h3><h4>Type: ${responseJson.response.groups[0].items[j].venue.categories[0].name}</h4></li>`);
-    if (`${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Bar" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Brewery") {
+    if (`${`${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Sports Bar" || responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Bar" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Brewery") {
       nightLife.push(`${responseJson.response.groups[0].items[j].venue.name}`)
     }
-    else if (`${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Grocery Store" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Sandwich Place") {
+    else if (`${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Café" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Diner" ||`${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Coffee Shop" ||`${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Deli / Bodega" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Fast Food Restaurant" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Grocery Store" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Sandwich Place") {
       grocery.push(`${responseJson.response.groups[0].items[j].venue.name}`)
     }
     else if (`${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Lake" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Harbor Marina" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Bay" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Bike Trail" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Yoga Studio" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Campground" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Botanical Garden" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "State / Provincial Park") {
@@ -253,6 +261,7 @@ function createApp() {
   watchForm();
   watchReset();
   watchReviews();
+  // clearAttractions();
 }
 
 $(createApp);

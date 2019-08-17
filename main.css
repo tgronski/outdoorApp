@@ -1,14 +1,36 @@
 * {
     box-sizing: border-box;
+    text-align: center;
   }
   
   body {
     font-family: 'Roboto', sans-serif;
     display: flex;
+    justify-content: center;
+    padding: 2px;
   }
   
-  button, input[type="text"] {
+  input[type="text"] {
     padding: 5px;
+   
+  font-size: 20px;
+  }
+ul{
+  list-style: none;
+  padding: 0px;
+}
+#js-search-term{
+  width: 45px;
+}
+#park-search-term{
+  width: 200px;
+}
+
+input[type='button'],input[type='submit']{
+    font-size: 30px;
+    border: black solid 1px;
+    background: none; 
+    
   }
   
   button:hover {
@@ -17,7 +39,10 @@
   
   .container {
     max-width: 600px;
-    margin: 0 auto;
+    margin: auto;
+    text-align: center;
+    position: relative;
+    top: 350px;
   }
   
   .error-message {
@@ -43,4 +68,56 @@
   width: 200px;
   justify-content: space-between;
 
+}
+header{
+  display: block;
+  margin-top: 0;
+  position: absolute; 
+ 
+  
+  font-size: 28px;
+}
+
+
+.container>h2 {
+  color: rgb(44, 44, 111);
+  font-size: 28px;
+}
+#js-form>label{
+  font-size: 22px;
+}
+
+h1, h2{
+  font-family: 'Anton', sans-serif;
+}
+
+
+
+.grid-container{
+  display: inline-grid;
+  grid-template-columns: auto auto auto;
+  
+
+}
+
+header {
+  color: rgb(11, 142, 109);
+  font-size: 28px;
+}
+
+.grid-container,.grid-item{
+  border: solid 3px rgb(11, 142, 109);
+}
+.grid-item{
+  text-align: center;
+  width: 100%;
+  padding: 2px;
+  
+}
+ul, .grid-item{
+  
+  margin: 0;
+}
+li{
+  height: 50%;
 }

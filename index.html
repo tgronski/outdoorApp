@@ -7,18 +7,20 @@
     <title>Outdoor API App</title>
     <script src="https://kit.fontawesome.com/edb3e54f58.js"></script>
     <link rel="stylesheet" href="main.css">
+    <link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 </head>
 <body>
+    <header><h1><p>Get Outside.</p><p>Visit a National Park.</p></h1> </header>
     <div class="container">
-        <h1>National Park Trip Planner</h1>
+        <h2>Start Planning Here:</h2>
 
         <form id="js-form">
-            <label for="search-term">Search by state (abbreviate)</label>
+            <label for="search-term">Search by state (abbreviate):</label>
             <input type="text" name="search-term" id="js-search-term" value="WI" maxlength='2' required>
 
-            <label for="max-results" >Maximum results to return</label>
-            <input type="number" min="1" name="max-results" id="js-max-results" value="10">
+            <label class="hidden" for="max-results" >Maximum results to return</label>
+            <input class="hidden" type="number" min="1" name="max-results" id="js-max-results" value="10">
 
             <input type="submit" value="Go!">
             <input type="button" value="Reset!" class="reset">
@@ -38,7 +40,7 @@
         <section id='reviewData' class='hidden'>
             <h2>Check out the Nearby Attractions</h2> 
             <form id="park-form">
-                <label for="search-term">Search for things to do near your selected Park</label>
+                <label for="search-term">Search for things to do near your selected Park:</label>
                 <input type="text" name="search-term" id="park-search-term"  required>
                 <!-- <label for="max-results">Maximum results to return</label>
                 <input type="number" name="max-results" id="park-max-results" value="10"> -->
