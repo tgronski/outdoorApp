@@ -8,6 +8,8 @@
     display: flex;
     justify-content: center;
     padding: 2px;
+    font-family: 'Quicksand', sans-serif;
+
   }
   
   input[type="text"] {
@@ -38,7 +40,7 @@ input[type='button'],input[type='submit']{
   }
   
   .container {
-    max-width: 600px;
+    max-width: 850px;
     margin: auto;
     text-align: center;
     position: relative;
@@ -65,9 +67,10 @@ input[type='button'],input[type='submit']{
 }
 #logos{
   display: flex;
-  width: 200px;
+  width: 500px;
   justify-content: space-between;
-
+  display: block;
+  margin: 0 auto;
 }
 header{
   display: block;
@@ -106,18 +109,47 @@ header {
 }
 
 .grid-container,.grid-item{
-  border: solid 3px rgb(11, 142, 109);
+  background: #0b8e6d3f;
 }
 .grid-item{
   text-align: center;
   width: 100%;
-  padding: 2px;
-  
+  padding: 15px;
+  border: white 3px solid; 
 }
-ul, .grid-item{
+ul, .grid-item,.grid-hold{
   
   margin: 0;
 }
 li{
   height: 50%;
+}
+input, button{
+  border-radius: 5%;
+}
+.bold{
+  font-weight: bolder;
+}
+
+.grid-hold{
+  text-align: center;
+  width: 100%;
+  margin: 5px;
+  
+}
+
+.grid-holder{
+  
+  display: inline-grid;
+  grid-template-columns: auto auto auto;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0;
+
+}
+img{
+  margin-top: 25px;
+}
+header>p{
+  margin-bottom: 0;
 }

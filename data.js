@@ -50,16 +50,19 @@ function displayResults(responseJson) {
     for (let j = 0; j < responseJson.data.length; j++) {
       arr.push(`${responseJson.data[j].addresses[1].postalCode}`);
       names.push(`${responseJson.data[j].name}`);
-      getWeather(arr[j], names[j])
+      // getWeather(arr[j], names[j])
 
     }
 
     for (let i = 0; i < responseJson.data.length; i++) {
-
+      getWeather(arr[i], names[i])
       $('#results-list').append(
         `<li><h3 class='parkName'>${responseJson.data[i].name}</h3>
-      <p>${responseJson.data[i].description}</p><ul class="parkAddress">Address<li>${responseJson.data[i].addresses[1].line1}</li><li>${responseJson.data[i].addresses[1].line2}</li><li>${responseJson.data[i].addresses[1].line3}</li><li>${responseJson.data[i].addresses[1].city},${responseJson.data[i].addresses[1].stateCode} ${responseJson.data[i].addresses[1].postalCode} </li></ul><p>Click the icons for more info:</p><section id="logos"><a href='${responseJson.data[i].url}' target="_blank"><i class="fas fa-tree"></i></a><a href="#weather"><i id="postal-form" class="fas fa-temperature-low"></i></a><a href="#park-form" ><i class="fab fa-foursquare"></i></a></section>`);
+      <p>${responseJson.data[i].description}</p><ul class="parkAddress">Address<li>${responseJson.data[i].addresses[1].line1}</li><li>${responseJson.data[i].addresses[1].line2}</li><li>${responseJson.data[i].addresses[1].line3}</li><li>${responseJson.data[i].addresses[1].city},${responseJson.data[i].addresses[1].stateCode} ${responseJson.data[i].addresses[1].postalCode} </li></ul><p>Click the icons for more info:</p><section id="logos"><ul class="grid-holder"><li class="grid-hold">Park Website: </li><li class="grid-hold">Forecast: </li><li class="grid-hold">Nearby Attractions: </li><li class="grid-hold"></li></ul><ul class="grid-holder"><li><a href='${responseJson.data[i].url}' target="_blank"><i  class="fas fa-tree"></i></a></li><li class="grid-hold"><a href="#weather"><i id="postal-form" class="fas fa-temperature-low"></i></a></li><li class="grid-hold"><a href="#park-form" ><i class="fab fa-foursquare"></i></a></li></ul></section>`);
 
+        if(`${responseJson.data[i].name}`==names[i]){
+        $('#results-list').append(`<p>${weatherStr[i]}</p>`)
+        }
       // getWeather(arr[i]);
       $("#numberResults").html(`${responseJson.data.length} results`)
       $("#park-search-term").val(names[0]);
@@ -151,16 +154,18 @@ function formatQueryParamsWeather(params) {
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
   return queryItems.join('&');
 }
-const weatherStr = {};
+let weatherStr = [];
 
 function displayWeatherResults(responseJson, name) {
   console.log(responseJson);
   console.log(arr);
   console.log(names);
-  $('#weather').append(`<p>Forecast for ${name}: <section class='grid-container'> <ul> <li class='grid-item'>Today: ${responseJson.data[0].rh}&deg</li><li class='grid-item'> ${responseJson.data[0].weather.description}</li></ul><ul><li class='grid-item'>${responseJson.data[1].datetime}: ${responseJson.data[1].rh}&deg</li><li class='grid-item'>${responseJson.data[1].weather.description}</li></ul><ul><li class='grid-item'>${responseJson.data[2].datetime}: ${responseJson.data[2].rh}&deg</li><li class='grid-item'>${responseJson.data[2].weather.description}</li></ul></section></p>`);
+  // $('#weather').append(`<p class="bold">${name}:</p><section class='grid-container'> <ul> <li class='grid-item'>Today: ${responseJson.data[0].rh}&deg F</li><li class='grid-item'> ${responseJson.data[0].weather.description}</li></ul><ul><li class='grid-item'>${responseJson.data[1].datetime}: ${responseJson.data[1].rh}&deg F</li><li class='grid-item'>${responseJson.data[1].weather.description}</li></ul><ul><li class='grid-item'>${responseJson.data[2].datetime}: ${responseJson.data[2].rh}&deg F</li><li class='grid-item'>${responseJson.data[2].weather.description}</li></ul></section></p>`);
+  weatherStr.push(`<p class="bold">Forecast for ${name}:</p><section class='grid-container'> <ul> <li class='grid-item'>Today: ${responseJson.data[0].rh}&deg F</li><li class='grid-item'> ${responseJson.data[0].weather.description}</li></ul><ul><li class='grid-item'>${responseJson.data[1].datetime}: ${responseJson.data[1].rh}&deg F</li><li class='grid-item'>${responseJson.data[1].weather.description}</li></ul><ul><li class='grid-item'>${responseJson.data[2].datetime}: ${responseJson.data[2].rh}&deg F</li><li class='grid-item'>${responseJson.data[2].weather.description}</li></ul></section></p>`);
+
   $("#navigateUp1").html("<a href='#js-form'><p>Back to the Parks List</p></a>")
   // weatherStr.push(`${responseJson.data[0].datetime}`);
-
+  console.log(weatherStr);
 }
 //show reivews 
 function watchReviews() {

@@ -8,10 +8,11 @@
     <script src="https://kit.fontawesome.com/edb3e54f58.js"></script>
     <link rel="stylesheet" href="main.css">
     <link href="https://fonts.googleapis.com/css?family=Anton&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header><h1><p>Get Outside.</p><p>Visit a National Park.</p></h1> </header>
+    <header><h1><p>Get Outside. Visit a National Park.</p><img src="mtn.png"></h1> </header>
     <div class="container">
         <h2>Start Planning Here:</h2>
 
@@ -21,9 +22,11 @@
 
             <label class="hidden" for="max-results" >Maximum results to return</label>
             <input class="hidden" type="number" min="1" name="max-results" id="js-max-results" value="10">
-
-            <input type="submit" value="Go!">
-            <input type="button" value="Reset!" class="reset">
+            <div>
+                    <input  type="submit" value="Go!">
+                    <input type="button" value="Reset!" class="reset">
+            </div>
+            
         </form>
 
         <p id="js-error-message" class="error-message"></p>
@@ -31,6 +34,7 @@
           <h2>Search results<p id="numberResults"></p></h2>
           <ul id="results-list">
           </ul>
+          <img src="weather.png">
           <h2>Check out the forecast</h2>
           <ul id="weather">
                     
@@ -38,6 +42,7 @@
         <section id="navigateUp1">
         </section>
         <section id='reviewData' class='hidden'>
+            <img src="park.png">
             <h2>Check out the Nearby Attractions</h2> 
             <form id="park-form">
                 <label for="search-term">Search for things to do near your selected Park:</label>
