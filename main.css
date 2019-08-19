@@ -24,9 +24,9 @@ ul{
 #js-search-term{
   width: 45px;
 }
-#park-search-term{
+/* #park-search-term{
   width: 200px;
-}
+} */
 
 input[type='button'],input[type='submit']{
     font-size: 30px;
@@ -54,24 +54,24 @@ input[type='button'],input[type='submit']{
   .hidden {
     display: none;
   }
-  i{
+  /* i{
     font-size: 30px;
     align-items: center;
- }
- i:hover{
+ } */
+ /* i:hover{
    font-size: 40px;
- }
+ } */
 
 .parkAddress{
   list-style: none;
 }
-#logos{
+/* #logos{
   display: flex;
   width: 500px;
   justify-content: space-between;
   display: block;
   margin: 0 auto;
-}
+} */
 header{
   display: block;
   margin-top: 0;
@@ -135,21 +135,35 @@ input, button{
   text-align: center;
   width: 100%;
   margin: 5px;
-  
+  display: inline-grid;
 }
 
 .grid-holder{
   
   display: inline-grid;
-  grid-template-columns: auto auto auto;
-  width: 100%;
+  grid-template-columns: auto auto;
+  width:80%;
   margin: 0 auto;
   padding: 0;
-
+  
 }
 img{
   margin-top: 25px;
 }
 header>p{
   margin-bottom: 0;
+}
+
+
+@media (prefers-color-scheme: dark) {
+  *{
+    background: rgba(40, 46, 58, 0.927);
+    color: white;
+  }
+  img{
+    opacity: 75%;
+  }
+  html{
+    content: dark;
+  }
 }
