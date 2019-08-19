@@ -48,7 +48,7 @@ function displayResults(responseJson) {
     }
 
     for (let i = 0; i < responseJson.data.length; i++) {
-      getWeather(arr[i])
+      getWeather(arr[i],names[i])
       $('#results-list').append(
         `<li><h3 class='parkName'>${responseJson.data[i].name}</h3>
       <p>${responseJson.data[i].description}</p></li><li><section class="grid-holder"><ul class="grid-hold" class="parkAddress">Address<li>${responseJson.data[i].addresses[1].line1}</li><li>${responseJson.data[i].addresses[1].line2}</li><li>${responseJson.data[i].addresses[1].line3}</li><li>${responseJson.data[i].addresses[1].city},${responseJson.data[i].addresses[1].stateCode} ${responseJson.data[i].addresses[1].postalCode} </li></ul><ul class="grid-hold"><li>Park Website:</li><li><a href='${responseJson.data[i].url}' target="_blank"><li><i  class="fas fa-tree"></i></a></li></li>`);
@@ -59,9 +59,10 @@ function displayResults(responseJson) {
       $("#numberResults").html(`${responseJson.data.length} results`)
 
       watchReviews(arr[i],names[i])
-      console.log(nightLife.includes("Apostle Islands"))
+      console.log(nightLifeArr);
+     
       if (`${responseJson.data[i].name}` == names[i]) {
-        $('#results-list').append(`<li> <img src="park.png"><h2>Check out the Nearby Attractions</h2><p>Night Life:</p><p>${nightLife}</p><ul>Grocery & Fast food: <li>${grocery[i]}</li></ul><ul>Outdoor Recreation <li>${outdoors[i]}</li></ul></li>`)
+        $('#results-list').append(`<li> <img src="park.png"><h2>Check out the Nearby Attractions for ${names[i]}</h2><p>Night Life:</p><p>${nightLifeArr[i]}</p><ul>Grocery & Fast food: <li>${groceryArr[i]}</li></ul><ul>Outdoor Recreation <li>${outdoorsArr[i]}</li></ul></li>`)
       
       }
     
@@ -112,11 +113,11 @@ function watchForm() {
 // weather API data below
 
 
-function getWeather(query) {
+function getWeather(query,name) {
   const params = {
     key: weatherApiKey,
     postal_code: query,
-    // name: name,
+    name: name,
   };
   const queryString = formatQueryParamsWeather(params)
   const url = weatherSearchURL + queryString;
@@ -130,7 +131,7 @@ function getWeather(query) {
       }
       throw new Error(response.statusText);
     })
-    .then(responseJson => displayWeatherResults(responseJson))
+    .then(responseJson => displayWeatherResults(responseJson, name))
     .catch(err => {
       $('#js-error-message').text(`Something went wrong: ${err.message}`)
     });
@@ -143,7 +144,7 @@ function formatQueryParamsWeather(params) {
 }
 let weatherStr = [];
 
-function displayWeatherResults(responseJson) {
+function displayWeatherResults(responseJson,name) {
   console.log(responseJson);
   console.log(arr);
   console.log(names);
@@ -197,24 +198,45 @@ let nightLife = [];
 let grocery = [];
 let outdoors = [];
 
-
+let nightLifeArr=[];
+let groceryArr=[];
+let outdoorsArr=[];
 
 
 function displayReviewResults(responseJson,name) {
   console.log(responseJson);
   console.log(names);
-  
+  nightLife=[];
+  grocery=[];
+  outdoors=[];
+  // nightLifeArr=[];
   for (let j = 0; j < responseJson.response.groups[0].items.length; j++) {
       if (`${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Sports Bar" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Bar" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Brewery") {
       nightLife.push(`${name} ${responseJson.response.groups[0].items[j].venue.name}`)
     }
     if (`${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Café" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Diner" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Coffee Shop" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Deli / Bodega" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Fast Food Restaurant" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Grocery Store" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Sandwich Place") {
-      grocery.push(`<ul><li>${[j+1]}. ${responseJson.response.groups[0].items[j].venue.name}</li></ul>`)
+      grocery.push(`${name} ${responseJson.response.groups[0].items[j].venue.name}`)
     }
     if (`${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Lake" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Harbor Marina" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Bay" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Bike Trail" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Yoga Studio" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Campground" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Botanical Garden" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "State / Provincial Park") {
-      outdoors.push(`<ul><li>${[j+1]}. ${responseJson.response.groups[0].items[j].venue.name}</li></ul>`)
+      outdoors.push(`${responseJson.response.groups[0].items[j].venue.name}`)
     }
-  };
+    
+  }
+  console.log(nightLifeArr);
+    if(nightLife.length>0){
+    nightLifeArr.push(nightLife);
+    }
+    else nightLifeArr.push("<p>None</p>")
+  console.log(groceryArr);
+  if(grocery.length>0){
+  groceryArr.push(grocery);
+  }
+  else groceryArr.push("<p>None</p>")
+  console.log(outdoorsArr);
+  if(outdoors.length>0){
+  outdoorsArr.push(outdoors);
+  }
+  else outdoorsArr.push("<p>None</p>")
 }
   
 

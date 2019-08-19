@@ -58,9 +58,9 @@ input[type='button'],input[type='submit']{
     font-size: 30px;
     align-items: center;
  } */
- /* i:hover{
-   font-size: 40px;
- } */
+ i{
+   font-size: 50px;
+ }
 
 .parkAddress{
   list-style: none;
