@@ -12,7 +12,7 @@
     <script src="https://code.jquery.com/jquery-3.3.1.js" integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60=" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header><h1><p>Get Outside. Visit a National Park.</p><img src="mtn.png"></h1> </header>
+    <header><h1 id='title'><p>Get Outside. Visit a National Park.</p><img src="mtn.png"></h1> </header>
     <div class="container">
         <h2>Start Planning Here:</h2>
 
@@ -36,13 +36,17 @@
           </ul>
           
             <section id="navigateUp1">
-                    <a href='#js-form'><p>Back to the Parks List</p></a>
+                    <a href='#title'><p>Back to the Search</p></a>
             </section>
        
-            
+           
            
         </section>
     </div>
+    <footer id="darkMode" class="hidden">
+        <i id="darkSelect" class="far fa-moon"></i>
+        <p>Prefer dark mode?</p>
+    </footer>
     <script src="data.js"></script>
 </body>
 </html>

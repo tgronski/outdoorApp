@@ -154,16 +154,25 @@ header>p{
   margin-bottom: 0;
 }
 
+#darkMode{
+  position: absolute; 
+  top: 200px;
+  left: 5px;
+}
 
-@media (prefers-color-scheme: dark) {
-  *{
-    background: rgba(40, 46, 58, 0.927);
-    color: white;
-  }
-  img{
-    opacity: 75%;
-  }
-  html{
-    content: dark;
+
+.dark{
+  background: darkslategray;
+  color: whitesmoke;
+  
+}
+
+
+@media screen and (min-width: 600px){
+  #darkMode{
+    display: block;
   }
 }
+
+
+
