@@ -218,7 +218,7 @@ function displayReviewResults(responseJson,name) {
     }
     
   }
-
+  
   if (nightLife.length==0){
     nightLife.push("<p>None</p>")
   }
