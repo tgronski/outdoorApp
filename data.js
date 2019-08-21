@@ -52,8 +52,7 @@ function displayResults(responseJson) {
       if (`${responseJson.data[i].name}` === names[i]) {
         $('#results-list').append(`<li><img src="weather.png"><h2>Check out the forecast</h2><p>${weatherStr[i]}</p></li>`)
       }
-      $("#numberResults").html(`${responseJson.data.length} results`)
-
+      $("#numberResults").html(`${arr[i].length-1} results`)
       getReviews(arr[i],names[i])
       
     }
