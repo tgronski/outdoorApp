@@ -41,11 +41,6 @@ function displayResults(responseJson) {
     arr = [];
     names = [];
 
-    
-    // for (let j = 0; j < responseJson.data.length; j++) {
-    //   arr.push(`${responseJson.data[j].addresses[1].postalCode}`);
-    //   names.push(`${responseJson.data[j].name}`);
-    // }
     for (let i = 0; i < responseJson.data.length; i++) {
       arr.push(`${responseJson.data[i].addresses[1].postalCode}`);
       names.push(`${responseJson.data[i].name}`);
@@ -55,13 +50,11 @@ function displayResults(responseJson) {
       <p>${responseJson.data[i].description}</p></li><li><section class="grid-holder"><ul class="grid-hold" class="parkAddress">Address<li>${responseJson.data[i].addresses[1].line1}</li><li>${responseJson.data[i].addresses[1].line2}</li><li>${responseJson.data[i].addresses[1].line3}</li><li>${responseJson.data[i].addresses[1].city},${responseJson.data[i].addresses[1].stateCode} ${responseJson.data[i].addresses[1].postalCode} </li></ul><ul class="grid-hold"><li>Park Website:</li><li><a href='${responseJson.data[i].url}' target="_blank"><li><i  class="fas fa-tree"></i></a></li></li>`);
 
       if (`${responseJson.data[i].name}` === names[i]) {
-        weatherStr.slice(0,arr.length)
         $('#results-list').append(`<li><img src="weather.png"><h2>Check out the forecast</h2><p>${weatherStr[i]}</p></li>`)
       }
       $("#numberResults").html(`${responseJson.data.length} results`)
 
-      watchReviews(arr[i],names[i])
-      // $('#results-list').append(`<li> <img src="park.png"><h2>Check out the Nearby Attractions for ${names[i]}</h2><p>Night Life:</p><p>${nightLife[i]}</p><ul>Grocery & Fast food: <li>${grocery[i]}</li></ul><ul>Outdoor Recreation <li>${outdoors[i]}</li></ul></li>`)
+      getReviews(arr[i],names[i])
       
     }
     
@@ -155,17 +148,12 @@ function displayWeatherResults(responseJson,name) {
   console.log(responseJson);
   console.log(arr);
   console.log(names);
+  weatherStr=weatherStr.slice(0,names.length).sort();
   weatherStr.push(`<p class="bold">Forecast for ${name}:</p><section class='grid-container'> <ul> <li class='grid-item'>Today: ${responseJson.data[0].rh}&deg F</li><li class='grid-item'> ${responseJson.data[0].weather.description}</li></ul><ul><li class='grid-item'>${responseJson.data[1].datetime}: ${responseJson.data[1].rh}&deg F</li><li class='grid-item'>${responseJson.data[1].weather.description}</li></ul><ul><li class='grid-item'>${responseJson.data[2].datetime}: ${responseJson.data[2].rh}&deg F</li><li class='grid-item'>${responseJson.data[2].weather.description}</li></ul></section></p>`);
-  weatherStr=weatherStr.slice(0,arr.length).sort();
+  
 }
 
 
-function watchReviews(search,name) {
-  // $(nightLife).empty();
-  // $(grocery).empty();
-  // $(outdoors).empty();
-  getReviews(search,name);
-}
 
 
 function getReviews(query,name) {
@@ -220,24 +208,31 @@ function displayReviewResults(responseJson,name) {
 
   for (let j = 0; j < responseJson.response.groups[0].items.length; j++) {
       if (`${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Sports Bar" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Bar" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Brewery") {
-      nightLife.push(`${name} ${responseJson.response.groups[0].items[j].venue.name}`)
+      nightLife.push(` ${responseJson.response.groups[0].items[j].venue.name}`)
     }
     if (`${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Café" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Diner" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Coffee Shop" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Deli / Bodega" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Fast Food Restaurant" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Grocery Store" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Sandwich Place") {
-      grocery.push(`${name} ${responseJson.response.groups[0].items[j].venue.name}`)
+      grocery.push(` ${responseJson.response.groups[0].items[j].venue.name}`)
     }
     if (`${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Lake" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Harbor Marina" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Bay" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Bike Trail" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Yoga Studio" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Campground" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Botanical Garden" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "State / Provincial Park") {
-      outdoors.push(`${responseJson.response.groups[0].items[j].venue.name}`)
+      outdoors.push(` ${responseJson.response.groups[0].items[j].venue.name}`)
     }
     
   }
 
-
-
-  console.log(nightLife);
-  nightLife.slice(0,arr.length).sort();
-  grocery.slice(0,arr.length).sort();
-  outdoors.slice(0,arr.length).sort();
-  $('#results-list').append(`<li> <img src="park.png"><h2>Check out the Nearby Attractions for ${name}</h2><p>Night Life:</p><p>${nightLife}</p><ul>Grocery & Fast food: <li>${grocery}</li></ul><ul>Outdoor Recreation <li>${outdoors}</li></ul></li>`)
+  if (nightLife.length==0){
+    nightLife.push("<p>None</p>")
+  }
+  if (grocery.length==0){
+    grocery.push("<p>None</p>")
+  }
+  if (outdoors.length==0){
+    outdoors.push("<p>None</p>")
+  }
+  
+  nightLife.slice(0,names.length)
+  grocery.slice(0,names.length)
+  outdoors.slice(0,names.length)
+  $('#results-list').append(`<li> <img src="park.png"><h2>Check out the Nearby Attractions for ${name}</h2><h3>Night Life:</h3><p>${nightLife}</p><ul><h3>Grocery & Fast food:</h3> <li>${grocery}</li></ul><ul><h3>Outdoor Recreation</h3> <li>${outdoors}</li></ul></li>`)
 
   
 
