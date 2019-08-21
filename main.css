@@ -53,8 +53,14 @@ button:hover {
 i{
    font-size: 50px;
 }
-i:before, i:after, i:focus{
-   color:green;
+
+a{
+  text-decoration: none;
+  cursor: default;
+  color: black;
+}
+a:hover{
+  color: green;
 }
 .parkAddress{
   list-style: none;
@@ -64,9 +70,7 @@ header{
   display: block;
   margin-top: 0;
   position: absolute; 
- 
-  
-  font-size: 28px;
+
 }
 
 
@@ -151,15 +155,24 @@ footer{
 
 .dark{
   background: darkslategray;
-  color: whitesmoke;
+  color: rgb(220, 220, 220);
   
 }
 
 
-@media screen and (min-width: 600px){
+
+@media screen and (min-width: 500px){
   #darkMode{
     display: block;
+  }
+  h1{
+    font-size: 38px;
   }
 }
 
 
+@media screen and (max-width: 499px){
+  h1{
+    font-size: 18px;
+  }
+}

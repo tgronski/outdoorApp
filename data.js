@@ -47,7 +47,7 @@ function displayResults(responseJson) {
       getWeather(arr[i], names[i]);
       $('#results-list').append(
         `<li><h2 class='parkName'>${responseJson.data[i].name}</h2>
-      <p>${responseJson.data[i].description}</p></li><li><section class="grid-holder"><ul class="grid-hold" class="parkAddress">Address<li>${responseJson.data[i].addresses[1].line1}</li><li>${responseJson.data[i].addresses[1].line2}</li><li>${responseJson.data[i].addresses[1].line3}</li><li>${responseJson.data[i].addresses[1].city},${responseJson.data[i].addresses[1].stateCode} ${responseJson.data[i].addresses[1].postalCode} </li></ul><ul class="grid-hold"><li>Park Website:</li><li><a href='${responseJson.data[i].url}' target="_blank"><li><i  class="fas fa-tree"></i></a></li></li>`);
+      <p>${responseJson.data[i].description}</p></li><li><section class="grid-holder"><ul class="grid-hold" class="parkAddress">Address<li>${responseJson.data[i].addresses[1].line1}</li><li>${responseJson.data[i].addresses[1].line2}</li><li>${responseJson.data[i].addresses[1].line3}</li><li>${responseJson.data[i].addresses[1].city},${responseJson.data[i].addresses[1].stateCode} ${responseJson.data[i].addresses[1].postalCode} </li></ul><ul class="grid-hold"><a href='${responseJson.data[i].url}' target="_blank"><li>Park Website<li></a></li></li>`);
 
       if (`${responseJson.data[i].name}` === names[i]) {
         $('#results-list').append(`<li><img src="weather.png"><h2>Check out the forecast</h2><p>${weatherStr[i]}</p></li>`)
