@@ -1,77 +1,65 @@
 * {
-    box-sizing: border-box;
-    text-align: center;
-  }
+  box-sizing: border-box;
+  text-align: center;
+}
   
-  body {
-    font-family: 'Roboto', sans-serif;
-    display: flex;
-    justify-content: center;
-    padding: 2px;
-    font-family: 'Quicksand', sans-serif;
+body {
+  font-family: 'Roboto', sans-serif;
+  display: flex;
+  justify-content: center;
+  padding: 2px;
+  font-family: 'Quicksand', sans-serif;
 
-  }
+}
   
-  input[type="text"] {
-    padding: 5px;
-   
+input[type="text"] {
+  padding: 5px;
+  width: 45px;
   font-size: 20px;
-  }
+}
 ul{
   list-style: none;
   padding: 0px;
 }
-#js-search-term{
-  width: 45px;
-}
-/* #park-search-term{
-  width: 200px;
-} */
+
 
 input[type='button'],input[type='submit']{
-    font-size: 30px;
-    border: black solid 1px;
-    background: none; 
+  font-size: 30px;
+  border: black solid 1px;
+  background: none; 
     
-  }
+}
   
-  button:hover {
-    cursor: pointer;
-  }
+button:hover {
+  cursor: pointer;
+}
   
-  .container {
+.container {
     max-width: 850px;
     margin: auto;
     text-align: center;
     position: relative;
     top: 350px;
-  }
+}
   
-  .error-message {
+.error-message {
       color: red;
-  }
+}
   
-  .hidden {
+.hidden {
     display: none;
-  }
-  /* i{
-    font-size: 30px;
-    align-items: center;
- } */
- i{
+}
+ 
+i{
    font-size: 50px;
- }
-
+}
+i:before, i:after, i:focus{
+   color:green;
+}
 .parkAddress{
   list-style: none;
 }
-/* #logos{
-  display: flex;
-  width: 500px;
-  justify-content: space-between;
-  display: block;
-  margin: 0 auto;
-} */
+
 header{
   display: block;
   margin-top: 0;
@@ -86,7 +74,7 @@ header{
   color: rgb(44, 44, 111);
   font-size: 28px;
 }
-#js-form>label{
+label{
   font-size: 22px;
 }
 
@@ -154,7 +142,7 @@ header>p{
   margin-bottom: 0;
 }
 
-#darkMode{
+footer{
   position: absolute; 
   top: 200px;
   left: 5px;
@@ -173,6 +161,5 @@ header>p{
     display: block;
   }
 }
-
 
 
