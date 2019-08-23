@@ -16,6 +16,9 @@ function formatQueryParams(params) {
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
   return queryItems.join('&');
 }
+let answers={};
+let answersArr=[];
+
 function watchReset() {
   $(".reset").click(event => {
     $('#results').addClass('hidden');
@@ -25,6 +28,7 @@ function watchReset() {
   });
   watchForm();
 }
+let arr=[];
 
 function displayResults(responseJson) {
 
@@ -38,34 +42,45 @@ function displayResults(responseJson) {
 
     $('#results').removeClass('hidden');
     $('#results-list').empty();
-    arr = [];
-    names = [];
-
-    for (let i = 0; i < responseJson.data.length; i++) {
-      arr.push(`${responseJson.data[i].addresses[1].postalCode}`);
-      names.push(`${responseJson.data[i].name}`);
-      getWeather(arr[i], names[i]);
-      $('#results-list').append(
-        `<li><h2 class='parkName'>${responseJson.data[i].name}</h2>
-      <p>${responseJson.data[i].description}</p></li><li><section class="grid-holder"><ul class="grid-hold" class="parkAddress">Address<li>${responseJson.data[i].addresses[1].line1}</li><li>${responseJson.data[i].addresses[1].line2}</li><li>${responseJson.data[i].addresses[1].line3}</li><li>${responseJson.data[i].addresses[1].city},${responseJson.data[i].addresses[1].stateCode} ${responseJson.data[i].addresses[1].postalCode} </li></ul><ul class="grid-hold"><a href='${responseJson.data[i].url}' target="_blank"><li>Park Website<li></a></li></li>`);
-
-      if (`${responseJson.data[i].name}` === names[i]) {
-        $('#results-list').append(`<li><img src="weather.png"><h2>Check out the forecast</h2><p>${weatherStr[i]}</p></li>`)
-      }
-      $("#numberResults").html(`${arr[i].length - 1} results`)
-      getReviews(arr[i], names[i])
-
+    arr=[];
+    
+    for (let j=0; j< responseJson.data.length; j++){
+      arr.push(responseJson.data[j].name);
     }
-
-
+    for (let i = 0; i < arr.length; i++) {
+      answers={};
+      answers.name=responseJson.data[i].name;
+      answers.description=responseJson.data[i].description;
+      answers.address={};
+      answers.address.line1=responseJson.data[i].addresses[1].line1;
+      answers.address.line2=responseJson.data[i].addresses[1].line2;
+      answers.address.line3=responseJson.data[i].addresses[1].line3;
+      answers.address.city=responseJson.data[i].addresses[1].city;
+      answers.address.state=responseJson.data[i].addresses[1].stateCode;
+      answers.address.zip=responseJson.data[i].addresses[1].postalCode;
+      answers.url=responseJson.data[i].url;
+      answersArr.push(answers);
+      answers.weather={};
+      answers.entertainment={};
+      getReviews(answersArr[i].address.zip);
+      getWeather(answersArr[i].address.zip);
+      answers.weather=forecastArr[i];
+      answers.entertainment.nightlife=nightLife[i];
+      answers.entertainment.grocery=groceryStore[i];
+      answers.entertainment.outdoors=outdoorLife[i];
+    }
+   
+    
+  }
+  $('#results-list').append(`<p>${arr.length} Search Results</p>`);
+  console.log(answersArr);
+  let lengthArr=arr.length
+  for(let j=0;j<lengthArr;j++){
+    $('#results-list').append(`<h2 class='parkName'>${answersArr[j+lengthArr].name}</h2><p>${answersArr[j+lengthArr].description}</p><section class="grid-holder"><ul class="grid-hold" class="parkAddress">Address<li>${answersArr[j+lengthArr].address.line1}</li><li>${answersArr[j+lengthArr].address.line2}</li><li>${answersArr[j+lengthArr].address.line3}</li><li>${answersArr[j+lengthArr].address.city},${answersArr[j+lengthArr].address.state} ${answersArr[j+lengthArr].address.zip} </li></ul><ul class="grid-hold"><a href='${answersArr[j+lengthArr].url}' target="_blank"><li>Park Website<li></a></li></li></section><img src="weather.png"><h2>Check out the forecast</h2><p class="bold">Forecast for ${answersArr[j+lengthArr].name}:</p><section class='grid-container'> <ul> <li class='grid-item'>Today: ${answersArr[j+lengthArr].weather.today}&deg F</li><li class='grid-item'> ${answersArr[j+lengthArr].weather.description1}</li></ul><ul><li class='grid-item'>Tomorrow: ${answersArr[j+lengthArr].weather.tomorrow}&deg F</li><li class='grid-item'>${answersArr[j+lengthArr].weather.description2}</li></ul><ul><li class='grid-item'>Next Day: ${answersArr[j+lengthArr].weather.nextDay}&deg F</li><li class='grid-item'>${answersArr[j+lengthArr].weather.description3}</li></ul></section></p><img src="park.png"><h2>Check out the Nearby Attractions for ${answersArr[j+lengthArr].name}</h2><h3>Night Life:</h3><p>${answersArr[j+lengthArr].entertainment.nightlife.nightlife}</p><ul><h3>Grocery & Fast food:</h3> <li>${answersArr[j+lengthArr].entertainment.grocery.grocery}</li></ul><ul><h3>Outdoor Recreation</h3> <li>${answersArr[j+lengthArr].entertainment.outdoors.outdoors}</li></ul></li>`);
 
   }
 }
 
-
-
-let names = [];
-let arr = [];
 
 function getParks(query, maxResults = 10) {
   const params = {
@@ -98,25 +113,24 @@ function watchForm() {
     $('#js-error-message').addClass('hidden');
     const searchTerm = $('#js-search-term').val();
     const maxResults = $('#js-max-results').val();
-    nightLifeArr = [];
-    groceryArr = [];
-    outdoorsArr = [];
-    nightLife = [];
-    grocery = [];
-    outdoors = [];
-    weatherStr = [];
+    outdoorLife=[];
+    groceryStore=[];
+    nightLife=[];
+    answers={};
+    arr=[];
+    forecastArr=[];
+    answersArr=[];
     $("#results-list").empty();
     getParks(searchTerm, maxResults);
   });
 }
 // weather API data below
 
-
-function getWeather(query, name) {
+function getWeather(query) {
   const params = {
     key: weatherApiKey,
     postal_code: query,
-    name: name,
+    
   };
   const queryString = formatQueryParamsWeather(params)
   const url = weatherSearchURL + queryString;
@@ -130,7 +144,7 @@ function getWeather(query, name) {
       }
       throw new Error(response.statusText);
     })
-    .then(responseJson => displayWeatherResults(responseJson, name))
+    .then(responseJson => displayWeatherResults(responseJson))
     .catch(err => {
       $('#js-error-message').text(`Something went wrong: ${err.message}`)
     });
@@ -141,32 +155,39 @@ function formatQueryParamsWeather(params) {
     .map(key => `${encodeURIComponent(key)}=${encodeURIComponent(params[key])}`)
   return queryItems.join('&');
 }
-let weatherStr = [];
 
-function displayWeatherResults(responseJson, name) {
+let forecast={};
+let forecastArr=[];
+function displayWeatherResults(responseJson) {
   console.log(responseJson);
-  console.log(arr);
-  console.log(names);
-  weatherStr = weatherStr.slice(0, names.length).sort();
-  weatherStr.push(`<p class="bold">Forecast for ${name}:</p><section class='grid-container'> <ul> <li class='grid-item'>Today: ${responseJson.data[0].rh}&deg F</li><li class='grid-item'> ${responseJson.data[0].weather.description}</li></ul><ul><li class='grid-item'>${responseJson.data[1].datetime}: ${responseJson.data[1].rh}&deg F</li><li class='grid-item'>${responseJson.data[1].weather.description}</li></ul><ul><li class='grid-item'>${responseJson.data[2].datetime}: ${responseJson.data[2].rh}&deg F</li><li class='grid-item'>${responseJson.data[2].weather.description}</li></ul></section></p>`);
 
+  forecast={};
+  forecast={
+    today: responseJson.data[0].rh,
+    description1: responseJson.data[0].weather.description,
+    tomorrow: responseJson.data[1].rh,
+    description2: responseJson.data[1].weather.description,
+    nextDay: responseJson.data[2].rh,
+    description3: responseJson.data[2].weather.description}
+  forecastArr.push(forecast);
+  
 }
 
 
 
 
-function getReviews(query, name) {
+function getReviews(query) {
   const params = {
     near: query,
     client_id: reviewAPIKeyClient,
     client_secret: reviewApiKey,
     v: 20190811,
-    name: name
-  };
-  const queryString = formatQueryParamsReviews(params)
-  const url = reviewSearchURL + queryString;
+    
+};
+const queryString = formatQueryParamsReviews(params)
+const url = reviewSearchURL + queryString;
 
-  console.log(url);
+console.log(url);
 
   fetch(url)
     .then(response => {
@@ -175,7 +196,7 @@ function getReviews(query, name) {
       }
       throw new Error(response.statusText);
     })
-    .then(responseJson => displayReviewResults(responseJson, name))
+    .then(responseJson => displayReviewResults(responseJson))
     .catch(err => {
       $('#js-error-message').text(`Something went wrong: ${err.message}`)
     });
@@ -187,54 +208,59 @@ function formatQueryParamsReviews(params) {
   return queryItems.join('&');
 }
 
+let nightList= {};
+let grocery = {};
+let outdoors = {};
+let nightLifeArr=[];
+let nightLife=[];
+let groceryStore=[];
+let groceryArr=[];
+let outdoorsArr=[];
+let outdoorLife=[];
 
-let nightLife = [];
-let grocery = [];
-let outdoors = [];
-
-let nightLifeArr = [];
-let groceryArr = [];
-let outdoorsArr = [];
-
-
-function displayReviewResults(responseJson, name) {
-  console.log(responseJson);
-  console.log(names);
-  nightLife = [];
-  grocery = [];
-  outdoors = [];
-
+function displayReviewResults(responseJson) {
+  grocery = {};
+  outdoors = {};
+  nightList={};
+  nightLifeArr=[];
+  groceryArr=[];
+  outdoorsArr=[];
 
   for (let j = 0; j < responseJson.response.groups[0].items.length; j++) {
     if (`${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Sports Bar" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Bar" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Brewery") {
-      nightLife.push(` ${responseJson.response.groups[0].items[j].venue.name}`)
+      nightLifeArr.push(`${responseJson.response.groups[0].items[j].venue.name}`) 
     }
+    if(nightLifeArr.length>0){
+      nightList={nightlife:nightLifeArr};
+    }
+    else nightList={nightlife: "None"};
+
     if (`${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Café" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Diner" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Coffee Shop" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Deli / Bodega" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Fast Food Restaurant" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Grocery Store" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Sandwich Place") {
-      grocery.push(` ${responseJson.response.groups[0].items[j].venue.name}`)
+    groceryArr.push(` ${responseJson.response.groups[0].items[j].venue.name}`)
     }
+    if(groceryArr.length>0){
+      grocery={grocery:groceryArr};
+    }
+    else grocery={grocery: "None"};
+
     if (`${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Lake" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Harbor Marina" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Bay" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Bike Trail" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Yoga Studio" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Campground" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Botanical Garden" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "State / Provincial Park") {
-      outdoors.push(` ${responseJson.response.groups[0].items[j].venue.name}`)
+    outdoorsArr.push(` ${responseJson.response.groups[0].items[j].venue.name}`)
     }
-
+    if(outdoorsArr.length>0){
+      outdoors={outdoors:outdoorsArr};
+    }
+    else outdoors={outdoors: "None"};
+    
   }
-
-  if (nightLife.length == 0) {
-    nightLife.push("<p>None</p>")
-  }
-  if (grocery.length == 0) {
-    grocery.push("<p>None</p>")
-  }
-  if (outdoors.length == 0) {
-    outdoors.push("<p>None</p>")
-  }
-
-  nightLife.slice(0, names.length)
-  grocery.slice(0, names.length)
-  outdoors.slice(0, names.length)
-  $('#results-list').append(`<li> <img src="park.png"><h2>Check out the Nearby Attractions for ${name}</h2><h3>Night Life:</h3><p>${nightLife}</p><ul><h3>Grocery & Fast food:</h3> <li>${grocery}</li></ul><ul><h3>Outdoor Recreation</h3> <li>${outdoors}</li></ul></li>`)
-
-
-
+  
+  
+  nightLife.push(nightList);
+  groceryStore.push(grocery);
+  outdoorLife.push(outdoors);
+  
+  
+ 
+  
 }
 
 
@@ -251,5 +277,8 @@ function createApp() {
   watchReset();
   darkMode();
 }
+
+
+
 
 $(createApp);
