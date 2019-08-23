@@ -51,6 +51,7 @@ function displayResults(responseJson) {
       answers={};
       answers.name=responseJson.data[i].name;
       answers.description=responseJson.data[i].description;
+      answers.entranceFees=responseJson.data[i].entranceFees[i].cost;
       answers.address={};
       answers.address.line1=responseJson.data[i].addresses[1].line1;
       answers.address.line2=responseJson.data[i].addresses[1].line2;
@@ -87,9 +88,8 @@ function getParks(query, maxResults = 10) {
     key: npsApiKey,
     stateCode: query,
     limit: maxResults,
-
   };
-  const queryString = formatQueryParams(params) + "&fields=addresses"
+  const queryString = formatQueryParams(params) + "&fields=addresses" 
   const url = npsSearchURL + queryString;
 
   console.log(url);
@@ -264,18 +264,18 @@ function displayReviewResults(responseJson) {
 }
 
 
-function darkMode() {
-  $("#darkSelect").click(event => {
-    $("body").toggleClass("dark")
-  });
-}
+// function darkMode() {
+//   $("#darkSelect").click(event => {
+//     $("body").toggleClass("dark")
+//   });
+// }
 
 
 
 function createApp() {
   watchForm();
   watchReset();
-  darkMode();
+  // darkMode();
 }
 
 
