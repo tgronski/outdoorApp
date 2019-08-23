@@ -51,7 +51,7 @@ function displayResults(responseJson) {
       answers={};
       answers.name=responseJson.data[i].name;
       answers.description=responseJson.data[i].description;
-      answers.entranceFees=responseJson.data[i].entranceFees[i].cost;
+      
       answers.address={};
       answers.address.line1=responseJson.data[i].addresses[1].line1;
       answers.address.line2=responseJson.data[i].addresses[1].line2;
@@ -83,7 +83,7 @@ function displayResults(responseJson) {
 }
 
 
-function getParks(query, maxResults = 10) {
+function getParks(query, maxResults) {
   const params = {
     key: npsApiKey,
     stateCode: query,
@@ -112,7 +112,8 @@ function watchForm() {
     event.preventDefault();
     $('#js-error-message').addClass('hidden');
     const searchTerm = $('#js-search-term').val();
-    const maxResults = $('#js-max-results').val();
+    // const maxResults = $('#js-max-results').val();
+    const maxResults = 10;
     outdoorLife=[];
     groceryStore=[];
     nightLife=[];
@@ -275,7 +276,7 @@ function displayReviewResults(responseJson) {
 function createApp() {
   watchForm();
   watchReset();
-  // darkMode();
+  
 }
 
 

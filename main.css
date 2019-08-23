@@ -34,7 +34,7 @@ button:hover {
   cursor: pointer;
 }
   
-main {
+.container {
     max-width: 850px;
     margin: auto;
     text-align: center;
@@ -74,7 +74,7 @@ header{
 }
 
 
-main>h2 {
+.container>h2 {
   color: rgb(44, 44, 111);
   font-size: 28px;
 }
@@ -146,25 +146,18 @@ header>p{
   margin-bottom: 0;
 }
 
-/* footer{
-  position: absolute; 
-  top: 200px;
-  left: 5px;
-} */
+
 
 
 /* .dark{
   background: darkslategray;
   color: rgb(220, 220, 220);
   
-} */
-
+}  */
 
 
 @media screen and (min-width: 500px){
-  /* #darkMode{
-    display: block;
-  } */
+  
   h1{
     font-size: 38px;
   }
