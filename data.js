@@ -51,7 +51,6 @@ function displayResults(responseJson) {
       answers={};
       answers.name=responseJson.data[i].name;
       answers.description=responseJson.data[i].description;
-      
       answers.address={};
       answers.address.line1=responseJson.data[i].addresses[1].line1;
       answers.address.line2=responseJson.data[i].addresses[1].line2;
@@ -77,7 +76,7 @@ function displayResults(responseJson) {
   console.log(answersArr);
   let lengthArr=arr.length
   for(let j=0;j<lengthArr;j++){
-    $('#results-list').append(`<h2 class='parkName'>${answersArr[j+lengthArr].name}</h2><p>${answersArr[j+lengthArr].description}</p><section class="grid-holder"><ul class="grid-hold" class="parkAddress">Address<li>${answersArr[j+lengthArr].address.line1}</li><li>${answersArr[j+lengthArr].address.line2}</li><li>${answersArr[j+lengthArr].address.line3}</li><li>${answersArr[j+lengthArr].address.city}, ${answersArr[j+lengthArr].address.state} ${answersArr[j+lengthArr].address.zip} </li></ul><ul class="grid-hold"><a href='${answersArr[j+lengthArr].url}' target="_blank"><li>Park Website<li></a></li></li></section><p><img src="weather.png"></p><h2>Check out the forecast</h2><p class="bold">Forecast for ${answersArr[j+lengthArr].name}:</p><section class='grid-container'> <ul> <li class='grid-item'>Today: ${answersArr[j+lengthArr].weather.today}&deg F</li><li class='grid-item'> ${answersArr[j+lengthArr].weather.description1}</li></ul><ul><li class='grid-item'>Tomorrow: ${answersArr[j+lengthArr].weather.tomorrow}&deg F</li><li class='grid-item'>${answersArr[j+lengthArr].weather.description2}</li></ul><ul><li class='grid-item'>Next Day: ${answersArr[j+lengthArr].weather.nextDay}&deg F</li><li class='grid-item'>${answersArr[j+lengthArr].weather.description3}</li></ul></section></p><img src="park.png"><h2>Check out the Nearby Attractions for ${answersArr[j+lengthArr].name}</h2><h3>Night Life:</h3><p>${answersArr[j+lengthArr].entertainment.nightlife.nightlife}</p><ul><h3>Grocery & Fast food:</h3> <li>${answersArr[j+lengthArr].entertainment.grocery.grocery}</li></ul><ul><h3>Outdoor Recreation</h3> <li>${answersArr[j+lengthArr].entertainment.outdoors.outdoors}</li></ul></li>`);
+    $('#results-list').append(`<h2 class='parkName'>${answersArr[j+lengthArr].name}</h2><p>${answersArr[j+lengthArr].description}</p><section class="grid-holder"><ul class="grid-hold" class="parkAddress">Address<li>${answersArr[j+lengthArr].address.line1}</li><li>${answersArr[j+lengthArr].address.line2}</li><li>${answersArr[j+lengthArr].address.line3}</li><li>${answersArr[j+lengthArr].address.city}, ${answersArr[j+lengthArr].address.state} ${answersArr[j+lengthArr].address.zip} </li></ul><ul class="grid-hold"><a href='${answersArr[j+lengthArr].url}' target="_blank"><li>Park Website<li></a></li></li></section><p><img src="weather.png"></p><h2>Check out the forecast</h2><p class="bold">Forecast for ${answersArr[j+lengthArr].name}:</p><section class='grid-container'> <ul> <li class='grid-item'>Today: ${answersArr[j+lengthArr].weather.today}&deg F</li><li class='grid-item'> ${answersArr[j+lengthArr].weather.description1}</li></ul><ul><li class='grid-item'>Tomorrow: ${answersArr[j+lengthArr].weather.tomorrow}&deg F</li><li class='grid-item'>${answersArr[j+lengthArr].weather.description2}</li></ul><ul><li class='grid-item'>Next Day: ${answersArr[j+lengthArr].weather.nextDay}&deg F</li><li class='grid-item'>${answersArr[j+lengthArr].weather.description3}</li></ul></section></p><img src="park.png"><h2>Check out the Nearby Attractions for ${answersArr[j+lengthArr].name}</h2><h3>Night Life:</h3><li> ${answersArr[j+lengthArr].entertainment.nightlife.nightlife}</li><ul><h3>Grocery & Fast food:</h3> <li> ${answersArr[j+lengthArr].entertainment.grocery.grocery}</li></ul><ul><h3>Outdoor Recreation:</h3> <li> ${answersArr[j+lengthArr].entertainment.outdoors.outdoors}</li></ul></li>`);
 
   }
 }
@@ -112,8 +111,8 @@ function watchForm() {
     event.preventDefault();
     $('#js-error-message').addClass('hidden');
     const searchTerm = $('#js-search-term').val();
-    // const maxResults = $('#js-max-results').val();
-    const maxResults = 10;
+    const maxResults = $('#js-max-results').val();
+    // const maxResults = 10;
     outdoorLife=[];
     groceryStore=[];
     nightLife=[];
@@ -229,7 +228,7 @@ function displayReviewResults(responseJson) {
 
   for (let j = 0; j < responseJson.response.groups[0].items.length; j++) {
     if (`${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Sports Bar" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Bar" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Brewery") {
-      nightLifeArr.push(`${responseJson.response.groups[0].items[j].venue.name}`) 
+      nightLifeArr.push(` ${responseJson.response.groups[0].items[j].venue.name}`) 
     }
     if(nightLifeArr.length>0){
       nightList={nightlife:nightLifeArr};
