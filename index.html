@@ -16,7 +16,7 @@
 
 <body>
     <header>
-        <h1 id='title'>
+        <h1 id="title">
             <p>Get Outside. Visit a National Park.</p><img src="mtn.png">
         </h1>
     </header>
@@ -26,14 +26,10 @@
         <form id="js-form">
             <label for="search-term">Search by state (abbreviate):</label>
             <input type="text" name="search-term" id="js-search-term" value="WI" maxlength='2' required>
-
-            <label class="hidden" for="max-results">Maximum results to return</label>
-            <input class="hidden" type="number" min="1" name="max-results" id="js-max-results" value="10">
-            <div>
+            <section>
                 <input type="submit" value="Go!">
                 <input type="button" value="Reset!" class="reset">
-            </div>
-
+            </section>
         </form>
 
         <p id="js-error-message" class="error-message"></p>
@@ -44,7 +40,7 @@
             </ul>
 
             <section id="navigateUp1">
-                <a href='#title'>
+                <a href="#title">
                     <p>Back to the Search</p>
                 </a>
             </section>
@@ -53,7 +49,7 @@
 
         </section>
     </main>
-    
+
     <script src="data.js"></script>
 </body>
 
