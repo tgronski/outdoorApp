@@ -148,14 +148,6 @@ header>p{
 
 
 
-
-/* .dark{
-  background: darkslategray;
-  color: rgb(220, 220, 220);
-  
-}  */
-
-
 @media screen and (min-width: 500px){
   
   h1{
@@ -168,4 +160,5 @@ header>p{
   h1{
     font-size: 18px;
   }
+  
 }
