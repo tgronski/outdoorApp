@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 const npsApiKey = "Xc8Z9iz4eukphHpAZIMXwKaQ8bfP6Tl4dBhXoXiR";
 const npsSearchURL = "https://developer.nps.gov/api/v1/parks?api_";
@@ -10,6 +10,23 @@ const reviewAPIKeyClient = "J2OYBRJYIRVZJCLVFDQZNXJUIUYT2JZYIYQ3OFJ0D2WQ0D0N";
 const reviewApiKey = "XGXG155FFGLLKP3PT4OEHFJNPPIMS0Z0VFDKQOBUQ24A25MU";
 const reviewSearchURL = "https://api.foursquare.com/v2/venues/explore?";
 
+function watchForm() {
+  $("#js-form").submit(event => {
+    event.preventDefault();
+    $("#js-error-message").addClass("hidden");
+    const searchTerm = $("#js-search-term").val();
+
+    outdoorLife = [];
+    groceryStore = [];
+    nightLife = [];
+    answers = {};
+    arr = [];
+    forecastArr = [];
+    answersArr = [];
+    $("#results-list").empty();
+    getParks(searchTerm);
+  });
+}
 
 function formatQueryParams(params) {
   const queryItems = Object.keys(params)
@@ -100,27 +117,12 @@ function getParks(query) {
     })
     .then(responseJson => displayResults(responseJson))
     .catch(err => {
-      $("#js-error-message").text(`Something went wrong: ${err.message}`)
+      $("#js-error-message").text(`Something went wrong: ${err.message}`);
+      $("#results-list").append("<p>Something went wrong, please try again.</p>");
     });
 }
 
-function watchForm() {
-  $("#js-form").submit(event => {
-    event.preventDefault();
-    $("#js-error-message").addClass("hidden");
-    const searchTerm = $("#js-search-term").val();
 
-    outdoorLife = [];
-    groceryStore = [];
-    nightLife = [];
-    answers = {};
-    arr = [];
-    forecastArr = [];
-    answersArr = [];
-    $("#results-list").empty();
-    getParks(searchTerm);
-  });
-}
 // weather API data below
 
 function getWeather(query) {
