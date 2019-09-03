@@ -6,9 +6,9 @@ const npsSearchURL = "https://developer.nps.gov/api/v1/parks?api_";
 const weatherApiKey = "77e0f092ff8c489aa8fe507cb942e633";
 const weatherSearchURL = "https://api.weatherbit.io/v2.0/forecast/daily?";
 
-const SuggestionAPIKeyClient = "J2OYBRJYIRVZJCLVFDQZNXJUIUYT2JZYIYQ3OFJ0D2WQ0D0N";
-const SuggestionApiKey = "XGXG155FFGLLKP3PT4OEHFJNPPIMS0Z0VFDKQOBUQ24A25MU";
-const SuggestionSearchURL = "https://api.foursquare.com/v2/venues/explore?";
+const suggestionAPIKeyClient = "J2OYBRJYIRVZJCLVFDQZNXJUIUYT2JZYIYQ3OFJ0D2WQ0D0N";
+const suggestionApiKey = "XGXG155FFGLLKP3PT4OEHFJNPPIMS0Z0VFDKQOBUQ24A25MU";
+const suggestionSearchURL = "https://api.foursquare.com/v2/venues/explore?";
 
 
 
@@ -200,13 +200,13 @@ function displayWeatherResults(responseJson,query) {
 function getSuggestions(query) {
   const params = {
     near: query,
-    client_id: SuggestionAPIKeyClient,
-    client_secret: SuggestionApiKey,
+    client_id: suggestionAPIKeyClient,
+    client_secret: suggestionApiKey,
     v: 20190811,
 
   };
   const queryString = formatQueryParamsSuggestions(params)
-  const url = SuggestionSearchURL + queryString;
+  const url = suggestionSearchURL + queryString;
 
  
 
