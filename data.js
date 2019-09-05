@@ -19,7 +19,10 @@ function watchForm() {
     const searchTerm = $("#js-search-term").val();
     finalOutdoorArr = [];
     finalGroceryArr = [];
+    finalNightlifeArr=[];
     nightLifeObj= {};
+    groceryObj={};
+    outdoorsObj={};
     results = {};
     arr = [];
     finalForecastArr = [];
@@ -94,12 +97,14 @@ function displayResults(responseJson) {
         if (finalNightlifeArr[j].zipCode===results[i].address.zip){
           results[i].entertainment.nightLife=finalNightlifeArr[j].nightlife;
         }
+        
       }
-      for(let j=0; j<finalNightlifeArr.length; j++){
-        if (finalNightlifeArr[j].zipCode===results[i].address.zip){
-          results[i].entertainment.nightLife=finalNightlifeArr[j].nightlife;
-        }
-      }
+      
+      // for(let j=0; j<finalNightlifeArr.length; j++){
+      //   if (finalNightlifeArr[j].zipCode===results[i].address.zip){
+      //     results[i].entertainment.nightLife=finalNightlifeArr[j].nightlife;
+      //   }
+      // }
       for(let j=0; j<finalGroceryArr.length; j++){
         if (finalGroceryArr[j].zipCode===results[i].address.zip){
           results[i].entertainment.grocery=finalGroceryArr[j].grocery;
@@ -208,7 +213,7 @@ function getSuggestions(query) {
   const queryString = formatQueryParamsSuggestions(params)
   const url = suggestionSearchURL + queryString;
 
- 
+  
 
   fetch(url)
   .then(response => {
@@ -232,44 +237,56 @@ function formatQueryParamsSuggestions(params) {
 
 let finalNightlifeArr = [];
 let groceryObj = {};
-let outdoorsObj = {};
 let nightLifeArr = [];
 let nightLifeObj= {};
 let finalGroceryArr = [];
 let groceryArr = [];
 let outdoorsArr = [];
 let finalOutdoorArr = [];
+let outdoorsObj = {};
 
 function displaySuggestionResults(responseJson,query) {
+  
   nightLifeArr=[];
   nightLifeObj={};
   groceryArr=[];
-  grocery={};
+  groceryObj={};
   outdoorsArr=[];
   outdoorsObj={};
+  
+
   for (let j = 0; j < responseJson.response.groups[0].items.length; j++) {
+    // groceryArr=[];
+    // outdoorsArr=[];
+    groceryObj={};
+    outdoorsObj={}
+    // nightLifeArr=[];
+    nightLifeObj={};
+    
     if (`${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Sports Bar" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Bar" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Brewery") {
       nightLifeArr.push(` ${responseJson.response.groups[0].items[j].venue.name}`)
     }
-  
-   
+    
     if (nightLifeArr.length > 0) {
       nightLifeObj= { zipCode: query, nightlife: nightLifeArr };
     }
     else nightLifeObj= { zipCode: query, nightlife: "None" };
-    finalNightlifeArr.push(nightLife);
     
+    finalNightlifeArr.push(nightLifeObj);
+
     if (`${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Café" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Diner" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Coffee Shop" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Deli / Bodega" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Fast Food Restaurant" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Grocery Store" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Sandwich Place") {
       groceryArr.push(` ${responseJson.response.groups[0].items[j].venue.name}`)
     }
+    
     if (groceryArr.length > 0) {
       groceryObj = { zipCode: query, grocery: groceryArr };
     }
     else groceryObj = { zipCode: query, grocery: "None" };
 
     finalGroceryArr.push(groceryObj);
-
-    if (`${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Lake" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Harbor Marina" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Bay" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Bike Trail" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Yoga Studio" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Campground" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Botanical Garden" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "State / Provincial Park") {
+    
+  
+    if (`${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Lake" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Harbor Marina" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}`=== "Bay" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Bike Trail" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Yoga Studio" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Campground" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "Botanical Garden" || `${responseJson.response.groups[0].items[j].venue.categories[0].name}` === "State / Provincial Park") {
       outdoorsArr.push(` ${responseJson.response.groups[0].items[j].venue.name}`)
     }
     if (outdoorsArr.length > 0) {
@@ -279,8 +296,11 @@ function displaySuggestionResults(responseJson,query) {
   
 
 
-  finalOutdoorArr.push(outdoors);
+  finalOutdoorArr.push(outdoorsObj);
+  
+
   }
+
 
 }
 
