@@ -8,6 +8,7 @@ body {
   display: flex;
   justify-content: center;
   padding: 2px;
+  margin: 5px;
   font-family: 'Quicksand', sans-serif;
 
 }
@@ -85,6 +86,10 @@ header{
   border-radius: 1.2%;
   margin-bottom: 15px;
   padding: 20px;
+  box-shadow:
+  0 0 5px rgba(128, 128, 128, 0.899),
+  0 0 10px rgba(128, 128, 128, 0.899),
+   0 0 5px rgba(128, 128, 128, 0.899);
 }
 .container>h2 {
   color: rgb(44, 44, 111);
