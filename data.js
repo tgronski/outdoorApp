@@ -92,6 +92,26 @@ function displayResults(responseJson) {
           results[i].weather=finalForecastArr[j];
         }
       }
+    if(results[i].weather.today===undefined){
+      results[i].weather.today="No data "
+    }
+    if(results[i].weather.tomorrow===undefined){
+      results[i].weather.tomorrow="No data "
+    }
+    if(results[i].weather.nextDay===undefined){
+      results[i].weather.nextDay="No data "
+    }
+    if(results[i].weather.description1===undefined){
+      results[i].weather.description1="No data "
+    }
+    if(results[i].weather.description2===undefined){
+      results[i].weather.description2="No data "
+    }
+    if(results[i].weather.description3===undefined){
+      results[i].weather.description3="No data "
+    }
+
+      console.log(results[i].weather.today)
       getSuggestions(results[i].address.zip);
       for(let j=0; j<finalNightlifeArr.length; j++){
         if (finalNightlifeArr[j].zipCode===results[i].address.zip){
@@ -115,7 +135,7 @@ function displayResults(responseJson) {
           results[i].entertainment.outdoors=finalOutdoorArr[j].outdoors;
         }
       }
-      $("#results-list").append(`<div class="border"><h2 class="parkName">${results[i].name}</h2><p>${results[i].description}</p><section class="grid-holder"><ul class="grid-hold" class="parkAddress">Address<li>${results[i].address.line1}</li><li>${results[i].address.line2}</li><li>${results[i].address.line3}</li><li>${results[i].address.city}, ${results[i].address.state} ${results[i].address.zip} </li></ul><ul class="grid-hold"><a href="${results[i].url}" target="_blank"><li class="parkButton">Park Website</a></li></ul></section><p><img src="weather.png"></p><h2>Check out the forecast</h2><p class="bold">Forecast for ${results[i].name}:</p><section class="grid-container"> <ul> <li class="grid-item">Today: ${results[i].weather.today}&deg F</li><li class="grid-item"> ${results[i].weather.description1}</li></ul><ul><li class="grid-item">Tomorrow: ${results[i].weather.tomorrow}&deg F</li><li class="grid-item">${results[i].weather.description2}</li></ul><ul><li class="grid-item">Next Day: ${results[i].weather.nextDay}&deg F</li><li class="grid-item">${results[i].weather.description3}</li></ul></section><p><img src="park.png"><h2>Check out the Nearby Attractions for ${results[i].name}</h2></p><ul><h3>Night Life:</h3><li> ${results[i].entertainment.nightLife}</li></ul><ul><h3>Grocery & Fast food:</h3> <li> ${results[i].entertainment.grocery}</li></ul><ul><h3>Outdoor Recreation:</h3> <li> ${results[i].entertainment.outdoors}</li></ul></div>`)
+      $("#results-list").append(`<div class="border"><h2 class="parkName">${results[i].name}</h2><p>${results[i].description}</p><section class="grid-holder"><ul class="grid-hold" class="parkAddress">Address<li>${results[i].address.line1}</li><li>${results[i].address.line2}</li><li>${results[i].address.line3}</li><li>${results[i].address.city}, ${results[i].address.state} ${results[i].address.zip} </li></ul><ul class="grid-hold"><a href="${results[i].url}" target="_blank"><li class="parkButton">Park Website</a></li></ul></section><p><img src="weather.png"></p><h2>Check out the forecast</h2><p class="bold">Forecast for ${results[i].name}:</p><section class="grid-container"> <ul> <li class="grid-item">Today: ${results[i].weather.today}</li><li class="grid-item"> ${results[i].weather.description1}</li></ul><ul><li class="grid-item">Tomorrow: ${results[i].weather.tomorrow}</li><li class="grid-item">${results[i].weather.description2}</li></ul><ul><li class="grid-item">Next Day: ${results[i].weather.nextDay}</li><li class="grid-item">${results[i].weather.description3}</li></ul></section><p><img src="park.png"><h2>Check out the Nearby Attractions for ${results[i].name}</h2></p><ul><h3>Night Life:</h3><li> ${results[i].entertainment.nightLife}</li></ul><ul><h3>Grocery & Fast food:</h3> <li> ${results[i].entertainment.grocery}</li></ul><ul><h3>Outdoor Recreation:</h3> <li> ${results[i].entertainment.outdoors}</li></ul></div>`)
     }    
 
 
@@ -190,13 +210,14 @@ function displayWeatherResults(responseJson,query) {
   forecast={}
   forecast = {
     zipCode: query,
-    today: responseJson.data[0].rh,
+    today: responseJson.data[0].rh + "&deg F",
     description1: responseJson.data[0].weather.description,
-    tomorrow: responseJson.data[1].rh,
+    tomorrow: responseJson.data[1].rh + "&deg F",
     description2: responseJson.data[1].weather.description,
-    nextDay: responseJson.data[2].rh,
+    nextDay: responseJson.data[2].rh+ "&deg F",
     description3: responseJson.data[2].weather.description
   };
+  
   finalForecastArr.push(forecast);
 }
 
