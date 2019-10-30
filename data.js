@@ -111,16 +111,19 @@ function displayResults(responseJson) {
     if(results[i].weather.description3===undefined){
       results[i].weather.description3="No data "
     }
+    
 
       console.log(results[i].weather.today)
       getSuggestions(results[i].address.zip);
       for(let j=0; j<finalNightlifeArr.length; j++){
         if (finalNightlifeArr[j].zipCode===results[i].address.zip){
           results[i].entertainment.nightLife=finalNightlifeArr[j].nightlife;
-        }
+        } 
         
       }
-      
+      if(results[i].entertainment.nightLife===undefined){
+        results[i].entertainment.nightLife='None'
+      }
       // for(let j=0; j<finalNightlifeArr.length; j++){
       //   if (finalNightlifeArr[j].zipCode===results[i].address.zip){
       //     results[i].entertainment.nightLife=finalNightlifeArr[j].nightlife;
@@ -131,10 +134,16 @@ function displayResults(responseJson) {
           results[i].entertainment.grocery=finalGroceryArr[j].grocery;
         }
       }
+      if(results[i].entertainment.grocery===undefined){
+        results[i].entertainment.grocery='None'
+      }
       for(let j=0; j<finalOutdoorArr.length; j++){
         if (finalOutdoorArr[j].zipCode===results[i].address.zip){
           results[i].entertainment.outdoors=finalOutdoorArr[j].outdoors;
         }
+      }
+      if(results[i].entertainment.outdoors===undefined){
+        results[i].entertainment.outdoors='None'
       }
       $("#results-list").append(`<div class="border"><h2 class="parkName">${results[i].name}</h2><p>${results[i].description}</p><section class="grid-holder"><ul class="grid-hold" class="parkAddress">Address<li>${results[i].address.line1}</li><li>${results[i].address.line2}</li><li>${results[i].address.line3}</li><li>${results[i].address.city}, ${results[i].address.state} ${results[i].address.zip} </li></ul><ul class="grid-hold"><a href="${results[i].url}" target="_blank"><li class="parkButton">Park Website</a></li></ul></section><p><img src="weather.png"></p><h2>Check out the forecast</h2><p class="bold">Forecast for ${results[i].name}:</p><section class="grid-container"> <ul> <li class="grid-item">Today: ${results[i].weather.today}</li><li class="grid-item"> ${results[i].weather.description1}</li></ul><ul><li class="grid-item">Tomorrow: ${results[i].weather.tomorrow}</li><li class="grid-item">${results[i].weather.description2}</li></ul><ul><li class="grid-item">Next Day: ${results[i].weather.nextDay}</li><li class="grid-item">${results[i].weather.description3}</li></ul></section><p><img src="park.png"><h2>Check out the Nearby Attractions for ${results[i].name}</h2></p><ul><h3>Night Life:</h3><li> ${results[i].entertainment.nightLife}</li></ul><ul><h3>Grocery & Fast food:</h3> <li> ${results[i].entertainment.grocery}</li></ul><ul><h3>Outdoor Recreation:</h3> <li> ${results[i].entertainment.outdoors}</li></ul></div>`)
     }    
@@ -303,8 +312,9 @@ function displaySuggestionResults(responseJson,query) {
     if (groceryArr.length > 0) {
       groceryObj = { zipCode: query, grocery: groceryArr };
     }
+    
     else groceryObj = { zipCode: query, grocery: "None" };
-
+    
     finalGroceryArr.push(groceryObj);
     
   
