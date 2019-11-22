@@ -21,6 +21,7 @@ input[type="text"] {
 ul{
   list-style: none;
   padding: 0px;
+
 }
 
 
@@ -41,6 +42,7 @@ button:hover {
     text-align: center;
     position: relative;
     top: 350px;
+    
 }
   
 .error-message {
@@ -104,13 +106,15 @@ h1{
 }
 
 
-
 .grid-container{
   display: inline-grid;
-  grid-template-columns: auto auto auto;
-  
+  grid-template-columns: 150px 150px 150px;
+  grid-template-rows: 150px;
+  margin-bottom: 100px;
+ 
 
 }
+
 .loader {
   margin-top: 5px;
   margin-left: auto;
@@ -162,7 +166,9 @@ input, button{
 .bold{
   font-weight: bolder;
 }
-
+.park{
+  margin-top:50px;
+}
 .grid-hold{
   text-align: center;
   width: 100%;
@@ -179,9 +185,8 @@ input, button{
   padding: 0;
   
 }
-img{
-  margin-top: 25px;
-}
+
+
 header>p{
   margin-bottom: 0;
 }
