@@ -10,7 +10,7 @@ body {
   padding: 2px;
   margin: 5px;
   font-family: 'Quicksand', sans-serif;
-
+  background-image: url("trees.png");
 }
   
 input[type="text"] {
@@ -28,20 +28,22 @@ ul{
 input[type='button'],input[type='submit']{
   font-size: 30px;
   border: black solid 1px;
-  background: none; 
+  color: green; 
+  background-color: white;
     
 }
   
 button:hover {
   cursor: pointer;
 }
+
   
 .container {
     max-width: 850px;
     margin: auto;
     text-align: center;
     position: relative;
-    top: 350px;
+    top: 300px;
     
 }
   
@@ -88,6 +90,8 @@ header{
   border-radius: 1.2%;
   margin-bottom: 15px;
   padding: 20px;
+  background-color: white;
+
   box-shadow:
   0 0 5px rgba(128, 128, 128, 0.899),
   0 0 10px rgba(128, 128, 128, 0.899),
@@ -191,7 +195,6 @@ input, button{
 header>p{
   margin-bottom: 0;
 }
-
 
 
 @media screen and (min-width: 500px){
